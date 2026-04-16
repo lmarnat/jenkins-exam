@@ -5,7 +5,7 @@ movieService:
   replicaCount: 1
   image:
     repository: lmarnat5/movie-service
-    tag: latest
+    pullPolicy: IfNotPresent
   containerPort: 8000
   service:
     port: 8000
@@ -17,7 +17,7 @@ castService:
   replicaCount: 1
   image:
     repository: lmarnat5/cast-service
-    tag: latest
+    pullPolicy: IfNotPresent
   containerPort: 8000
   service:
     port: 8000
