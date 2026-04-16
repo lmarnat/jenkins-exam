@@ -1,10 +1,10 @@
 movieService:
   image:
-    tag: dev
+    tag: ""
 
 castService:
   image:
-    tag: dev
+    tag: ""
 
 movieDb:
   database: movie_db_dev

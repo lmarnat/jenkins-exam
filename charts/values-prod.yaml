@@ -1,12 +1,12 @@
 movieService:
   replicaCount: 2
   image:
-    tag: prod
+    tag: ""
 
 castService:
   replicaCount: 2
   image:
-    tag: prod
+    tag: ""
 
 movieDb:
   database: movie_db_prod

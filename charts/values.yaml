@@ -6,6 +6,7 @@ movieService:
   image:
     repository: lmarnat5/movie-service
     pullPolicy: IfNotPresent
+    tag: ""
   containerPort: 8000
   service:
     port: 8000
@@ -18,6 +19,7 @@ castService:
   image:
     repository: lmarnat5/cast-service
     pullPolicy: IfNotPresent
+    tag: ""
   containerPort: 8000
   service:
     port: 8000
