@@ -41,7 +41,11 @@ pipeline {
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
-                        helm upgrade --install movie-app-dev ./charts -n dev --create-namespace --values=./charts/values-dev.yaml
+                        helm upgrade --install movie-app-dev ./charts \
+                        -n dev --create-namespace \
+                        --values=./charts/values-dev.yaml \
+                        --set movieService.image.tag=$DOCKER_TAG \
+                        --set castService.image.tag=$DOCKER_TAG
                     '''
                 }
             }
@@ -53,7 +57,11 @@ pipeline {
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
-                        helm upgrade --install movie-app-qa ./charts -n qa --create-namespace --values=./charts/values-qa.yaml
+                        helm upgrade --install movie-app-qa ./charts \
+                        -n qa --create-namespace \
+                        --values=./charts/values-qa.yaml \
+                        --set movieService.image.tag=$DOCKER_TAG \
+                        --set castService.image.tag=$DOCKER_TAG
                     '''
                 }
             }
@@ -65,7 +73,11 @@ pipeline {
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
-                        helm upgrade --install movie-app-staging ./charts -n staging --create-namespace --values=./charts/values-staging.yaml
+                        helm upgrade --install movie-app-staging ./charts \
+                        -n staging --create-namespace \
+                        --values=./charts/values-staging.yaml \
+                        --set movieService.image.tag=$DOCKER_TAG \
+                        --set castService.image.tag=$DOCKER_TAG
                     '''
                 }
             }
@@ -74,9 +86,11 @@ pipeline {
             when {
                 branch 'master'
             }
-            input {
-                message 'Valider le deploiement en production ?'
-                ok 'Deployer'
+            timeout(time: 15, unit: "MINUTES") {
+                input {
+                    message: 'Do you want to deploy in production ?'
+                    ok: 'Yes'
+                } 
             }
             steps {
                 script {
@@ -84,7 +98,11 @@ pipeline {
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
-                        helm upgrade --install movie-app-prod ./charts -n prod --create-namespace --values=./charts/values-prod.yaml
+                        helm upgrade --install movie-app-prod ./charts \
+                        -n prod --create-namespace \
+                        --values=./charts/values-prod.yaml \
+                        --set movieService.image.tag=$DOCKER_TAG \
+                        --set castService.image.tag=$DOCKER_TAG
                     '''
                 }
             }
