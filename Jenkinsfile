@@ -87,7 +87,10 @@ pipeline {
                 branch 'master'
             }
             timeout(time: 15, unit: "MINUTES") {
-                input message: 'Do you want to deploy in production ?', ok: 'Yes'
+                input {
+                    message: 'Do you want to deploy in production ?'
+                    ok: 'Yes'
+                } 
             }
             steps {
                 script {
