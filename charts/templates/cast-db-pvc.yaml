@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: cast-db-pvc
 spec:
+  storageClassName: local-path
   accessModes:
     - ReadWriteOnce
   resources:

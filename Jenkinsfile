@@ -38,6 +38,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        echo "Starting dev deployment"
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
@@ -46,6 +47,7 @@ pipeline {
                         --values=./charts/values-dev.yaml \
                         --set movieService.image.tag=$DOCKER_TAG \
                         --set castService.image.tag=$DOCKER_TAG
+                        echo "Dev deployment command completed"
                     '''
                 }
             }
@@ -54,6 +56,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        echo "Starting QA deployment"
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
@@ -62,6 +65,7 @@ pipeline {
                         --values=./charts/values-qa.yaml \
                         --set movieService.image.tag=$DOCKER_TAG \
                         --set castService.image.tag=$DOCKER_TAG
+                        echo "QA deployment command completed"
                     '''
                 }
             }
@@ -70,6 +74,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        echo "Starting staging deployment"
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
@@ -78,6 +83,7 @@ pipeline {
                         --values=./charts/values-staging.yaml \
                         --set movieService.image.tag=$DOCKER_TAG \
                         --set castService.image.tag=$DOCKER_TAG
+                        echo "Staging deployment command completed"
                     '''
                 }
             }
@@ -86,12 +92,14 @@ pipeline {
             when {
                 branch 'master'
             }
+            input {
+                message 'Do you want to deploy in production ?'
+                ok 'Yes'
+            }
             steps {
-                timeout(time: 15, unit: "MINUTES") {
-                    input message: 'Do you want to deploy in production ?', ok: 'Yes'
-                }
                 script {
                     sh '''
+                        echo "Starting production deployment"
                         rm -Rf .kube
                         mkdir .kube
                         cp $KUBECONFIG .kube/config
@@ -100,6 +108,7 @@ pipeline {
                         --values=./charts/values-prod.yaml \
                         --set movieService.image.tag=$DOCKER_TAG \
                         --set castService.image.tag=$DOCKER_TAG
+                        echo "Production deployment command completed"
                     '''
                 }
             }
