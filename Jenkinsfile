@@ -90,7 +90,11 @@ pipeline {
         }
         stage('Deploiement en prod') {
             when {
-                branch 'master'
+                anyOf {
+                    branch 'master'
+                    expression { env.BRANCH_NAME == 'master' }
+                    expression { env.GIT_BRANCH == 'master' || env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'refs/heads/master' }
+                }
             }
             input {
                 message 'Do you want to deploy in production ?'
