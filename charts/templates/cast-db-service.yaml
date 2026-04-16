@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.castDb.name }}
+spec:
+  selector:
+    app: {{ .Values.castDb.name }}
+  ports:
+    - port: {{ .Values.castDb.port }}
+      targetPort: {{ .Values.castDb.port }}

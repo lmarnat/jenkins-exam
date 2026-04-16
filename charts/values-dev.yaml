@@ -1,0 +1,16 @@
+movieService:
+  image:
+    tag: dev
+
+castService:
+  image:
+    tag: dev
+
+movieDb:
+  database: movie_db_dev
+
+castDb:
+  database: cast_db_dev
+
+ingress:
+  host: dev.movie-app.lmarnat.abrdns.com

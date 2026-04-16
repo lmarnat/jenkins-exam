@@ -1,0 +1,20 @@
+movieService:
+  replicaCount: 2
+  image:
+    tag: prod
+
+castService:
+  replicaCount: 2
+  image:
+    tag: prod
+
+movieDb:
+  database: movie_db_prod
+  storage: 5Gi
+
+castDb:
+  database: cast_db_prod
+  storage: 5Gi
+
+ingress:
+  host: movie-app.lmarnat.abrdns.com

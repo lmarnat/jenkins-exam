@@ -1,0 +1,16 @@
+movieService:
+  image:
+    tag: qa
+
+castService:
+  image:
+    tag: qa
+
+movieDb:
+  database: movie_db_qa
+
+castDb:
+  database: cast_db_qa
+
+ingress:
+  host: qa.movie-app.lmarnat.abrdns.com
