@@ -76,7 +76,7 @@ pipeline {
             }
             input {
                 message 'Valider le deploiement en production ?'
-                ok 'Deployer'
+                ok 'Déployer'
             }
             steps {
                 script {
