@@ -1,11 +1,3 @@
-movieService:
-  image:
-    tag: qa
-
-castService:
-  image:
-    tag: qa
-
 movieDb:
   database: movie_db_qa
 

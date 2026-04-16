@@ -1,11 +1,3 @@
-movieService:
-  image:
-    tag: ""
-
-castService:
-  image:
-    tag: ""
-
 movieDb:
   database: movie_db_dev
 
