@@ -48,7 +48,7 @@ castDb:
 
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   host: movie-app.local
   paths:
     movies: /api/v1/movies
