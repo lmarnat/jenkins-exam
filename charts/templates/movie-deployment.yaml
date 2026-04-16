@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.movieService.name }}
+spec:
+  replicas: {{ .Values.movieService.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.movieService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.movieService.name }}
+    spec:
+      containers:
+        - name: {{ .Values.movieService.name }}
+          image: "{{ .Values.movieService.image.repository }}:{{ .Values.movieService.image.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.movieService.containerPort }}
+          env:
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: movie-db-secret
+                  key: DATABASE_URI
+            - name: CAST_SERVICE_HOST_URL
+              value: {{ .Values.movieService.env.castServiceHostUrl | quote }}

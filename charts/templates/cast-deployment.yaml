@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.castService.name }}
+spec:
+  replicas: {{ .Values.castService.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.castService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.castService.name }}
+    spec:
+      containers:
+        - name: {{ .Values.castService.name }}
+          image: "{{ .Values.castService.image.repository }}:{{ .Values.castService.image.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.castService.containerPort }}
+          env:
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: cast-db-secret
+                  key: DATABASE_URI

@@ -1,0 +1,16 @@
+movieService:
+  image:
+    tag: staging
+
+castService:
+  image:
+    tag: staging
+
+movieDb:
+  database: movie_db_staging
+
+castDb:
+  database: cast_db_staging
+
+ingress:
+  host: staging.movie-app.lmarnat.abrdns.com
